@@ -11,11 +11,10 @@ fi
 
 sed -i "s|initImage.*|initImage: ${CUSTOM_INIT_IMAGE_TAG}|g" ./broker/broker_custom_init.yaml
 
-echo "Deploying broker ..."
-
 cat ./broker/broker_custom_init.yaml
 
-$KUBE create -f ./broker/broker_custom_init.yaml
+echo "Deploying broker ..."
+
+$KUBE apply -f ./broker/broker_custom_init.yaml
 
 echo "Done."
-

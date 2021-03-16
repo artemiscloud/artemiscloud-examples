@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source setup_tool.sh
+source ../setup_tool.sh
 
 CUSTOM_INIT_IMAGE_TAG=$1
 
