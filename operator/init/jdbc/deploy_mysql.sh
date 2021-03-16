@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./setup_tool.sh
+source ../setup_tool.sh
 
 $KUBE apply -f mysql/mysql.yaml
 

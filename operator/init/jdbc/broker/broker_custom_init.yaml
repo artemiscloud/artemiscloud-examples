@@ -6,4 +6,4 @@ spec:
   deploymentPlan:
     size: 1
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:0.2.1
-    initImage: quay.io/hgao/custom-init:broker-mysql-1.11
+    initImage: quay.io/hgao/custom-init:broker-mysql-1.20
