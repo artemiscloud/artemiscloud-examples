@@ -1,0 +1,88 @@
+apiVersion: broker.amq.io/v1alpha1
+kind: ActiveMQArtemisSecurity
+metadata:
+  name: ex-keycloak
+spec:
+  loginModules:
+    keycloakLoginModules:
+    - name: 'keycloak-broker'
+      moduleType: 'directAccess'
+      configuration:
+        realm: 'artemis-keycloak-demo'
+        resource: 'artemis-broker'
+        # the url has to point to keycloak service in k8s
+        authServerUrl: 'http://KEYCLOAK_SVC_IP:8080/auth'
+        useResourceRoleMappings: true
+        principalAttribute: 'preferred_username'
+        sslRequired: 'external'
+        credentials:
+        - key: 'secret'
+          value: '9699685c-8a30-45cf-bf19-0d38bbac5fdc'
+    - name: 'keycloak-console'
+      moduleType: 'bearerToken'
+      configuration:
+        realm: 'artemis-keycloak-demo'
+        resource: 'artemis-console'
+        # the url has to point to keycload service in k8s or Ingress
+        # this url is used by hawtio and frontend js
+        # in case frontend js is outside k8s, ingress must be used
+        authServerUrl: 'http://keycloak.3387.com/auth'
+        principalAttribute: 'preferred_username'
+        useResourceRoleMappings: true
+        sslRequired: 'external'
+        confidentialPort: 0
+  securityDomains:
+    brokerDomain:
+      name: 'activemq'
+      loginModules:
+      - name: 'keycloak-broker'
+        flag: 'required'
+    consoleDomain:
+      name: 'console'
+      loginModules:
+      - name: 'keycloak-console'
+        flag: required
+  securitySettings:
+    broker:
+      - match: 'Info'
+        # only amq role can consume, guest role can send
+        permissions:
+        - operationType: 'createDurableQueue'
+          roles:
+          - 'amq'
+        - operationType: 'deleteDurableQueue'
+          roles:
+          - 'amq'
+        - operationType: 'createNonDurableQueue'
+          roles:
+          - 'amq'
+        - operationType: 'deleteNonDurableQueue'
+          roles:
+          - 'amq'
+        - operationType: 'send'
+          roles:
+          - 'guest'
+        - operationType: 'consume'
+          roles:
+          - 'amq'
+      - match: 'activemq.management.#'
+        permissions:
+        - operationType: 'createNonDurableQueue'
+          roles:
+          - 'amq'
+        - operationType: 'createAddress'
+          roles:
+          - 'amq'
+        - operationType: 'consume'
+          roles:
+          - 'amq'
+        - operationType: 'manage'
+          roles:
+          - 'amq'
+        - operationType: 'send'
+          roles:
+          - 'amq'
+    management:
+      hawtioRoles:
+      - 'guest'
+
