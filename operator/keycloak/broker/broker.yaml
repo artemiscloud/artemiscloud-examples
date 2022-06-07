@@ -1,4 +1,4 @@
-apiVersion: broker.amq.io/v2alpha5
+apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemis
 metadata:
   name: ex-aao
@@ -24,4 +24,3 @@ spec:
                 name: ex-aao-hdls-svc
                 port:
                   number: 8161
-
