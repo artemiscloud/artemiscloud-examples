@@ -1,4 +1,4 @@
-apiVersion: broker.amq.io/v1alpha1
+apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemisSecurity
 metadata:
   name: ex-keycloak
@@ -85,4 +85,18 @@ spec:
     management:
       hawtioRoles:
       - 'guest'
+      authorisation:
+        roleAccess:
+        - domain: 'org.apache.activemq.artemis'
+          accessList:
+          - method: 'list*'
+            roles:
+            - guest
+          - method: 'sendMessage*'
+            roles:
+            - guest
+          - method: 'browse*'
+            roles:
+            - guest
+
 
