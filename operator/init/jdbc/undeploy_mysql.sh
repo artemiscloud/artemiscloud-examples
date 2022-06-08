@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ../setup_tool.sh
+source ../../setup_env.sh
 
-$KUBE delete -f mysql/mysql.yaml
+${KUBE_CLI} delete -f mysql/mysql.yaml

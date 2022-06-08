@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../setup_tool.sh
+source ../../setup_env.sh
 
 CUSTOM_INIT_IMAGE_TAG=$1
 
@@ -16,8 +16,11 @@ fi
 
 echo "Building custom init image using tag: ${CUSTOM_INIT_IMAGE_TAG}"
 
-DB_SERVICE_IP=`$KUBE get service --field-selector metadata.name=mysql-service -o=jsonpath='{.items[0].spec.clusterIP}'`
-DB_SERVICE_PORT=`$KUBE get service --field-selector metadata.name=mysql-service -o=jsonpath='{.items[0].spec.ports[0].port}'`
+DB_SERVICE_IP=`${KUBE_CLI} get service --field-selector metadata.name=mysql-service -o=jsonpath='{.items[0].spec.clusterIP}'`
+DB_SERVICE_PORT=`${KUBE_CLI} get service --field-selector metadata.name=mysql-service -o=jsonpath='{.items[0].spec.ports[0].port}'`
+
+echo "The DB_SERVICE_IP is ${DB_SERVICE_IP}"
+echo "The DB_SERVICE_PORT is ${DB_SERVICE_PORT}"
 
 docker build --build-arg DB_USER=root \
              --build-arg DB_PASSWORD=password \

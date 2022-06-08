@@ -1,4 +1,4 @@
-FROM quay.io/artemiscloud/activemq-artemis-broker-init:0.2.4
+FROM quay.io/artemiscloud/activemq-artemis-broker-init:1.0.5
 
 ADD mysql-jdbc-driver /amq/mysql-jdbc-driver
 ADD config /amq/scripts

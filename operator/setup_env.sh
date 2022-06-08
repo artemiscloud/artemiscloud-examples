@@ -1,20 +1,14 @@
 #!/bin/bash
+export OPERATOR_VERSION=v1.0.3
 
 if command -v kubectl &> /dev/null
 then
     echo "using kubectl"
-    export KUBE=kubectl
+    export KUBE_CLI=kubectl
 elif command -v oc &> /dev/null
 then
     echo "using oc"
-    export KUBE=oc
+    export KUBE_CLI=oc
 else
     echo "You need install kubectl (for minikube) or oc (for codeready)"
 fi
-
-# which operator branch/tag to use
-OPR_BR=master
-
-# helping vars
-OPR_GITHUB_RAW_BASE=https://raw.githubusercontent.com/artemiscloud/activemq-artemis-operator
-

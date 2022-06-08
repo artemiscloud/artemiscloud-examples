@@ -1,4 +1,5 @@
 #!/bin/bash
+source ../../setup_env.sh
 
 function printUsage() {
   main_name=`basename "$0"`
@@ -34,6 +35,4 @@ docker push quay.io/$1/$2:latest
 sed  's|QUAY_USER|'"$1"'|' keycloak.yaml > keycloak_tmp.yaml
 sed -i 's|QUAY_REPO|'"$2"'|' keycloak_tmp.yaml
 
-kubectl create -f keycloak_tmp.yaml
-
-
+${KUBE_CLI} create -f keycloak_tmp.yaml

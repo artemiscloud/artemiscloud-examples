@@ -79,7 +79,7 @@ The keycloak server has pre-configured with two users
 
 ## Step 1 Deploy ArtemisCloud operator
 
-Go to the base dir and run
+Go to the example root dir and run
 
     `$ ./deploy_operator.sh`
 

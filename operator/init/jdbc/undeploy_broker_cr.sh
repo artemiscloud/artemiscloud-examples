@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source ../setup_tool.sh
+source ../../setup_env.sh
 
 echo "Undeploying broker ..."
 
-$KUBE delete -f ./broker/broker_custom_init.yaml
+${KUBE_CLI} delete -f ./broker/broker_custom_init.yaml
 
 echo "Done."

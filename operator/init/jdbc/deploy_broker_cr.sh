@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../setup_tool.sh
+source ../../setup_env.sh
 
 CUSTOM_INIT_IMAGE_TAG=$1
 
@@ -15,7 +15,6 @@ echo "Deploying broker ..."
 
 cat ./broker/broker_custom_init.yaml
 
-$KUBE create -f ./broker/broker_custom_init.yaml
+${KUBE_CLI} create -f ./broker/broker_custom_init.yaml
 
 echo "Done."
-

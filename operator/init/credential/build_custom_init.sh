@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../setup_tool.sh
+source ../../setup_env.sh
 
 CUSTOM_INIT_IMAGE_TAG=$1
 
@@ -14,4 +14,3 @@ echo "Building custom init image using tag: ${CUSTOM_INIT_IMAGE_TAG}"
 docker build -t ${CUSTOM_INIT_IMAGE_TAG} ./custom-init
 
 docker push ${CUSTOM_INIT_IMAGE_TAG}
-
