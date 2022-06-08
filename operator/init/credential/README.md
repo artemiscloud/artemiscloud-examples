@@ -19,7 +19,7 @@ they can just provide their own custom init image in the custom resource file. D
 1. You need to have access to a kubernetes cluster. For example you can install a [minikube](https://minikube.sigs.k8s.io/docs/) cluster.  You also need kubectl tool. In this example we are going to need [ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) enabled. For minikube you can enable the nginx ingress controller by running this command:
 
    $ minikube addons enable ingress
- 
+
 (You can also choose to use [CodeReady](https://developers.redhat.com/products/codeready-containers/overview))
 
 2. You need to have docker tool available for building the image in the example.
@@ -39,9 +39,9 @@ There are two sub-directories that contains different kind of resources.
 
 ## Get started
 
-1. Deploy the Operator. Run:
+1. Deploy the Operator. Run deploy_operator.sh in the example's root dir:
 
-    `../deploy_broker_operator.sh`
+    `../../deploy_operator.sh`
 
 The script sets up proper service account and permissions for the broker operator and deploys the operator.
 
@@ -68,7 +68,7 @@ The example custom init image will be used in the [broker custom resource file](
    password: howard
    role: viewer
 
-and the viewer role will only have permissions to execute management operations whose name begin with **list**, **get** and **is**. All other operations are not allowed. 
+and the viewer role will only have permissions to execute management operations whose name begin with **list**, **get** and **is**. All other operations are not allowed.
 
 4. Deploy the broker custom resource. Run
 
@@ -95,7 +95,7 @@ The broker custome resource just deployed will expose the console via ingress. F
     NAME                      CLASS    HOSTS   ADDRESS          PORTS   AGE
     ex-aao-wconsj-0-svc-ing   <none>   *       192.168.99.116   80      7m36s
 
-The **ADDRESS** field of the output is the host ip on which the ingress is exposed. 
+The **ADDRESS** field of the output is the host ip on which the ingress is exposed.
 Open your browser and go to **http://192.168.99.116** and click on Management Console link to open up the login page. It looks like this:
 
 ![The login page](credential-login.png "Management console - login")
@@ -109,6 +109,3 @@ To clean up the example, run the following commands:
 
     $ ./undeploy_broker_cr.sh
     $ ../undeploy_broker_operator.sh
-
-
-

@@ -65,7 +65,7 @@ Verify that mysql server has an empty '**amq_broker**' database created. For exa
 
 2. Deploy the Operator. Run:
 
-    `$ ../deploy_broker_operator.sh`
+    `$ ../../deploy_broker_operator.sh`
 
 The script sets up proper service account and permissions for the broker operator and deploys the operator.
 
@@ -165,4 +165,3 @@ To clean up the example run the following scripts in order:
     $ ./undeploy_broker_cr.sh
     $ ../undeploy_broker_operator.sh
     $ ./undeploy_mysql.sh
-
