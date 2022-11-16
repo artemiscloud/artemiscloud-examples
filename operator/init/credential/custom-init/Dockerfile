@@ -1,3 +1,3 @@
-FROM quay.io/artemiscloud/activemq-artemis-broker-init:1.0.5
+FROM BROKER_INIT_IMAGE
 
 ADD config /amq/scripts

@@ -5,7 +5,8 @@ metadata:
 spec:
   deploymentPlan:
     size: 1
-    image: placeholder
+    image: BROKER_K8S_IMAGE
+    initImage: BROKER_INIT_IMAGE
 
 ---
 apiVersion: networking.k8s.io/v1

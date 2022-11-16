@@ -23,15 +23,14 @@ This example gives a step-by-step procedure to setup a Keycloak server pod and u
 
 ## Step 0 Set up the Keycloak server pod
 
-    `$ cd keycloak`
     `$ ./deploy_keycloak.sh <quay.io user name> <quay.io repo name>`
 
 The build_keycloak.sh performs the following tasks
 
 * Downloading the keycloak distribution and unzip it
 * Building the keycloak server image
-* Tagging it and push to quay.io
-* deploy the keycloak image into Minikube
+* Tagging it and push to docker repo (e.g. quay.io)
+* deploy the keycloak into the cluster
 
 It takes 2 parameters to execute. The first parameter is your quay.io user name
 and the second is your repository name for hosting the keycloak image to build.
@@ -44,7 +43,7 @@ The above command will build the keycloak image and tag it as
 
 quay.io/hgao/keycloak/keycloak:latest
 
-and push it to quay.io. Then it deploys the keycloak image into Minikube.
+and push it to quay.io. Then it deploys the keycloak image into the cluster.
 
 If the deploy_keycloak.sh runs successfully, you will be able to see the Keycloak server pod in the Minikube:
 
@@ -79,9 +78,9 @@ The keycloak server has pre-configured with two users
 
 ## Step 1 Deploy ArtemisCloud operator
 
-Go to the example root dir and run
+From the keycloak example dir run
 
-    `$ ./deploy_operator.sh`
+    `$ ../deploy_operator.sh`
 
 It will deploy all the CRDs and then the operator. Wait and see the operator is up and running.
 
@@ -92,7 +91,7 @@ It will deploy all the CRDs and then the operator. Wait and see the operator is 
 
 ## Step 2 Deploy the broker secured by KeycloakLoginModules
 
-Go to the sub-directory **broker** and run
+From the keycloak example dir run
 
     `$ ./deploy_broker.sh`
 

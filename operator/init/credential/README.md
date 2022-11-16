@@ -5,7 +5,7 @@ a broker instance deployed by [ActiveMQ Artemis broker operator](https://github.
 
 It configures a broker instance to add a new user account to access the broker's management console with limited rights.
 
-This example should not be used in real productization environment.
+This example is for demo purpose only and should not be used in real productization environment.
 
 ## About ArtemisCloud Broker Operator Custom Init Image
 
@@ -39,19 +39,7 @@ There are two sub-directories that contains different kind of resources.
 
 ## Get started
 
-1. Deploy the Operator. Run deploy_operator.sh in the example's root dir:
-
-    `../../deploy_operator.sh`
-
-The script sets up proper service account and permissions for the broker operator and deploys the operator.
-
-Verify that the operator is up and running. For example
-
-    $ kubectl get pod
-    NAME                                         READY   STATUS    RESTARTS   AGE
-    activemq-artemis-operator-554548d4dc-gh9ln   1/1     Running   0          13s
-
-3. Build the custom init image. Run:
+1. Build the custom init image. Run:
 
     `./build_custom_init.sh <tag>`
 
@@ -70,7 +58,20 @@ The example custom init image will be used in the [broker custom resource file](
 
 and the viewer role will only have permissions to execute management operations whose name begin with **list**, **get** and **is**. All other operations are not allowed.
 
-4. Deploy the broker custom resource. Run
+2. Deploy the Operator. Run deploy_operator.sh in the example's root dir:
+
+    `../../deploy_operator.sh`
+
+The script sets up proper service account and permissions for the broker operator and deploys the operator.
+
+Verify that the operator is up and running. For example
+
+    $ kubectl get pod
+    NAME                                         READY   STATUS    RESTARTS   AGE
+    activemq-artemis-operator-554548d4dc-gh9ln   1/1     Running   0          13s
+
+
+3. Deploy the broker custom resource. Run
 
     `./deploy_broker_cr.sh <custom init tag>`
 
@@ -87,25 +88,25 @@ Verify that the broker pod is up and running. For example
     activemq-artemis-operator-554548d4dc-gh9ln   1/1     Running   0          7m34s
     ex-aao-ss-0                                  1/1     Running   0          59s
 
-5. Log in to management console.
+4. Log in to management console.
 
 The broker custome resource just deployed will expose the console via ingress. First you need find out the ingress details:
 
     $ kubectl get ingress
-    NAME                      CLASS    HOSTS   ADDRESS          PORTS   AGE
-    ex-aao-wconsj-0-svc-ing   <none>   *       192.168.99.116   80      7m36s
+    NAME                      CLASS   HOSTS                 ADDRESS         PORTS   AGE
+    ex-aao-wconsj-0-svc-ing   nginx   www.mgmtconsole.com   192.168.39.61   80      37m
 
 The **ADDRESS** field of the output is the host ip on which the ingress is exposed.
-Open your browser and go to **http://192.168.99.116** and click on Management Console link to open up the login page. It looks like this:
+Open your browser and go to **http://www.mgmtconsole.com** and click on Management Console link to open up the login page. It looks like this:
 
 ![The login page](credential-login.png "Management console - login")
 
-Use **howard/howard** as username/password to log in. Once logged in you will be able to see various manament resources arranged in a tree/table format.
-As we configured the account with some limitations described above, some of the operations are not allowed to execute by the logged in user. To verify just click on the **Artemis/amq-broker** link and then select the **Operations** tab on the top right area and you will get a list of operations. Check on the list and you will find some operations are marked with a **lock** icon which means you don't have permission to perform them. Some others (as configured by the custom init, those whose names begin with **list**/**get**/**is**) are avaiable to use, as shown in the following picture.
+Use **howard/howard** as username/password to log in. Once logged in you will be able to see various management resources arranged in a tree/table format.
+As we configured the account with some limitations described above, some of the operations are not allowed to execute by the logged in user. To verify just click on the **Artemis/amq-broker** link and then select the **Operations** tab on the top right area and you will get a list of operations. Check on the list and you will find some operations are marked with a **lock** icon which means you don't have permission to perform them. Some others (as configured by the custom init, those whose names begin with **list**/**get**/**is**) are available to use, as shown in the following picture.
 
 ![The main page](credential-operations.png "Management console - operations")
 
 To clean up the example, run the following commands:
 
     $ ./undeploy_broker_cr.sh
-    $ ../undeploy_broker_operator.sh
+    $ ../../undeploy_boperator.sh
