@@ -2,4 +2,4 @@
 
 source ../../setup_env.sh
 
-${KUBE_CLI} delete -f mysql/mysql.yaml
+${KUBE_CLI} delete -n ${OPR_NAMESPACE} -f mysql/mysql.yaml

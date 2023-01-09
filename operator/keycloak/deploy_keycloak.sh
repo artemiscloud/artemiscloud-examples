@@ -1,5 +1,5 @@
 #!/bin/bash
-source ../../setup_env.sh
+source ../setup_env.sh
 
 function printUsage() {
   main_name=`basename "$0"`
@@ -24,6 +24,8 @@ if [ ${params_ready} = "false" ]
     exit 1
 fi
 
+cd ./keycloak
+
 wget https://github.com/keycloak/keycloak/releases/download/12.0.3/keycloak-12.0.3.tar.gz
 
 tar xvf keycloak-12.0.3.tar.gz
@@ -35,4 +37,6 @@ docker push quay.io/$1/$2:latest
 sed  's|QUAY_USER|'"$1"'|' keycloak.yaml > keycloak_tmp.yaml
 sed -i 's|QUAY_REPO|'"$2"'|' keycloak_tmp.yaml
 
-${KUBE_CLI} create -f keycloak_tmp.yaml
+${KUBE_CLI} create -n ${OPR_NAMESPACE} -f keycloak_tmp.yaml
+
+cd ..
