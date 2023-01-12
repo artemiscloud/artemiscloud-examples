@@ -1,4 +1,4 @@
-# ArtemisCloud Operator Custom Init Image Example - Prometheus Plugin
+# ArtemisCloud Operator Example - Prometheus Plugin
 
 This example demonstrates how to use [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) to collect
 metrics from brokers deployed by the artemiscloud operator.
