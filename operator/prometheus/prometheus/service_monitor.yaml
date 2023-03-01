@@ -10,3 +10,4 @@ spec:
       application: ex-aao-app
   endpoints:
   - port: wconsj
+    scheme: http
