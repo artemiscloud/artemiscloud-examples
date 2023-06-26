@@ -1,6 +1,8 @@
 #!/bin/bash
 source ../setup_env.sh
 
+KEYCLOAK_VER=19.0.2
+
 function printUsage() {
   main_name=`basename "$0"`
   echo "Usage:"
@@ -26,9 +28,8 @@ fi
 
 cd ./keycloak
 
-wget https://github.com/keycloak/keycloak/releases/download/12.0.3/keycloak-12.0.3.tar.gz
-
-tar xvf keycloak-12.0.3.tar.gz
+wget https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VER}/keycloak-legacy-${KEYCLOAK_VER}.tar.gz
+tar xvf keycloak-legacy-${KEYCLOAK_VER}.tar.gz
 
 docker build -t quay.io/$1/$2:latest .
 

@@ -194,3 +194,26 @@ Log into the broker pod again and receive the message using account **mdoe/passw
     Consumer ActiveMQQueue[Info], thread=0 Consumed: 1 messages
     Consumer ActiveMQQueue[Info], thread=0 Consumer thread finished
     jboss@ex-aao-ss-0 ~]$ exit
+
+## Troubleshooting
+
+* Management Console Not Showing After Logging in
+Check the broker pod's log. If there is something like "No Route to Host keycloak.3387.com"
+it means the host keycloak.3387.com is not resolvable. To fix this you need to configure the
+cluster's DNS service to add the host. With Minikube using core-dns, edit the coredns configmap:
+
+    kubectl edit configmap coredns -n kube-system
+
+and add the host to the configmap like this:
+
+    apiVersion: v1
+    data:
+      Corefile: |
+      ...
+            prometheus :9153
+            hosts {
+               192.168.39.1 host.minikube.internal
+               192.168.39.63 keycloak.3387.com    <==== here add your entries
+               fallthrough
+            }
+       ...
